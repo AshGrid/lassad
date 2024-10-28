@@ -1,54 +1,58 @@
 import 'package:flutter/material.dart';
+import '../classes/chapter.dart';
+import '../classes/subject.dart';
 import '../widgets/Bottom_navigation.dart'; // Ensure this path is correct
 import '../widgets/custom_appBar.dart';
 import 'CoursPdfViewScreen.dart'; // Ensure this path is correct
 
-import 'dart:io';
+class CourseDetailScreen extends StatefulWidget {
+  final Subject course;
 
+  CourseDetailScreen({Key? key, required this.course}) : super(key: key);
 
+  @override
+  _CourseDetailScreenState createState() => _CourseDetailScreenState();
+}
 
-class CourseDetailScreen extends StatelessWidget {
-  final String courseName;
+class _CourseDetailScreenState extends State<CourseDetailScreen> {
+  List<Chapter?> chapters = []; // List to hold chapters
+  bool isLoading = true; // Variable to track loading state
 
-  CourseDetailScreen({Key? key, required this.courseName}) : super(key: key);
-
-  final List<String> chapters = [
-    "Introduction to Flutter",
-    "Advanced Dart Programming",
-    "UI/UX Design Basics",
-    "Backend Development with Node.js",
-    "Machine Learning Fundamentals",
-  ];
-
-  final List<String> pdfs = [
-    "Introduction to Flutter",
-    "Advanced Dart Programming",
-    "UI/UX Design Basics",
-    "Backend Development with Node.js",
-    "Machine Learning Fundamentals",
-  ];
+  @override
+  void initState() {
+    super.initState();
+    // Initialize chapters only if course has chapters
+    if (widget.course.chapters != null && widget.course.chapters!.isNotEmpty) {
+      chapters = widget.course.chapters;
+      isLoading = false; // Set loading state to false as chapters are loaded
+    } else {
+      isLoading = false; // No chapters, so stop loading
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(courseName), // Set the app bar title to the course name
+        title: Text(widget.course.name ?? "Unknown"), // Set app bar title
         backgroundColor: Colors.blue,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: chapters.length,
+        child: isLoading
+            ? Center(child: CircularProgressIndicator()) // Show loading indicator
+            : chapters.isEmpty // Check if chapters list is empty
+            ? Center(child: Text('No chapters published.')) // Display message if no chapters
+            : ListView.builder(
+          itemCount: chapters.length, // Use the initialized chapters list
           itemBuilder: (context, index) {
-            final chapter = chapters[index];
+            final chapter = chapters[index]; // Access chapter object
 
             return Container(
-margin: EdgeInsets.symmetric(vertical: 15),
+              margin: EdgeInsets.symmetric(vertical: 15),
               decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.2),
-                border: Border.all(color: Colors.blue
-
-                ),
+                border: Border.all(color: Colors.blue),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: ListTile(
@@ -70,17 +74,16 @@ margin: EdgeInsets.symmetric(vertical: 15),
                   ),
                 ),
                 title: Text(
-                  chapter.toUpperCase(),
+                  chapter!.name!.toUpperCase(), // Use chapter name from the object
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 20, // Adjust font size as needed
                     fontWeight: FontWeight.bold,
                     fontFamily: "oswald",
-
                   ),
                 ),
                 onTap: () {
-                  _showPdfChoiceDialog(context, chapter);
+                  _showPdfChoiceDialog(context, chapter); // Pass chapter object
                 },
               ),
             );
@@ -90,23 +93,22 @@ margin: EdgeInsets.symmetric(vertical: 15),
     );
   }
 
-  void _showPdfChoiceDialog(BuildContext context, String chapter) {
+  void _showPdfChoiceDialog(BuildContext context, Chapter chapter) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(''),
+          title: Text('Select PDF for ${chapter.name}'), // Optional title
           content: Container(
             width: double.maxFinite,
             child: ListView.builder(
-              itemCount: pdfs.length,
+              itemCount: 1, // Only one PDF per chapter
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(pdfs[index]),
+                  title: Text('Open PDF'), // Display fixed option
                   onTap: () {
-                    // Implement the logic for opening or downloading the PDF here
                     Navigator.pop(context); // Close the dialog after selection
-                    _openPdf(context, pdfs[index]);
+                    _openPdf(context, chapter.pdfFile!); // Use chapter's pdfFile
                   },
                 );
               },
@@ -136,22 +138,3 @@ margin: EdgeInsets.symmetric(vertical: 15),
 }
 
 
-// Example ChapterDetailScreen for displaying chapter details
-class ChapterDetailScreen extends StatelessWidget {
-  final String chapterName;
-
-  const ChapterDetailScreen({Key? key, required this.chapterName}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(chapterName)), // Set the app bar title to chapter name
-      body: Center(
-        child: Text(
-          'Details for $chapterName',
-          style: const TextStyle(fontSize: 20),
-        ),
-      ),
-    );
-  }
-}
