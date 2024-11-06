@@ -7,9 +7,11 @@ import {
     deleteChapter, getChaptersBySubjectId
 } from '../controllers/chapterController.js';
 
+import { uploadPdf } from '../middlewares/multerStorage.js';
+
 const router = express.Router();
 
-router.post('/', createChapter); // Create a new chapter
+router.post('/', uploadPdf.single('pdfFile'), createChapter);
 router.get('/', getChapters); // Get all chapters
 router.get('/:id', getChapterById); // Get a chapter by ID
 router.get('/chaptersBySubject/:id', getChaptersBySubjectId); // Get a chapter by ID

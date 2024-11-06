@@ -3,7 +3,15 @@ import Subject from '../models/subjectModel.js';
 // Create a new chapter
 export const createChapter = async (req, res) => {
     try {
-        const { name, pdfFile, subject } = req.body;
+        const { name, subject } = req.body;
+        let pdfFile = '';
+
+        // Check if the PDF file is uploaded
+        if (req.file) {
+            pdfFile = req.file.filename; // Store the filename if uploaded
+        } else if (req.body.pdfFile) {
+            pdfFile = req.body.pdfFile; // Optionally allow pdfFile from body if necessary
+        }
 
         // Create a new chapter
         const chapter = new Chapter({ name, pdfFile, subject });
