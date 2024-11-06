@@ -7,7 +7,7 @@ part of 'class.dart';
 // **************************************************************************
 
 Class _$ClassFromJson(Map<String, dynamic> json) => Class(
-      id: json['id'] as String?,
+      id: json['_id'] as String?,
       name: json['name'] as String?,
       students: (json['students'] as List<dynamic>)
           .map((e) =>
