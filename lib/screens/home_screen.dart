@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:moodle_app/screens/HomePage.dart'; // Ensure this path is correct
-import '../widgets/Bottom_navigation.dart';
 import '/widgets/custom_appBar.dart';
 import 'CoursesScreen.dart';
-import 'NotificationsScreen.dart';
+import 'store_screen.dart';
+import '/widgets/custom_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,78 +12,111 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0; // Track the selected index for the bottom navigation
+  int _currentIndex = 0;
 
+  // List of app bars for each screen
+  final List<PreferredSizeWidget> _appBars = [
+    CustomAppBar(
+      title: 'Home',
+      isLoggedIn: true,
+      userImageUrl: 'assets/images/moodle.png',
+      backgroundColor: Colors.blue[600]!,
+    ),
+    CustomAppBar(
+      title: 'Courses',
+      isLoggedIn: true,
+      userImageUrl: 'assets/images/moodle.png',
+      backgroundColor: Colors.blue[600]!,
+    ),
+    CustomAppBar(
+      title: 'Notifications',
+      isLoggedIn: true,
+      userImageUrl: 'assets/images/moodle.png',
+      backgroundColor: Colors.blue[600]!,
+    ),
+    CustomAppBar(
+      title: 'Store',
+      isLoggedIn: true,
+      userImageUrl: 'assets/images/moodle.png',
+      backgroundColor: Colors.blue[600]!,
+    ),
+  ];
+
+  // Define a list of widgets for each tab in BottomNavigationBar
+  final List<Widget> _screens = [
+    const Center(child: Text('Welcome to the Moodle App')), // Home screen content
+    CoursesScreen(),                   // Courses screen content
+    const Center(child: Text('Notifications')),             // Notifications screen content
+    StoreScreen(),                                    // Store screen content
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index; // Update the selected index when tapped
+      _currentIndex = index; // Update current index based on the tapped item
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Home',
-        isLoggedIn: true,
-        userImageUrl: 'assets/images/moodle.png',
-      ),
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
+      appBar: _appBars[_currentIndex], // Set appBar based on selected tab
+      endDrawer: const CustomDrawer(),
+      // Display the selected screen widget from _screens based on the selected index
+      body: _screens[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: Container(
+              padding: EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: Colors.blue[800],
+                color: Colors.white,
+                shape: BoxShape.circle,
               ),
-              child: const Text('User Name', style: TextStyle(color: Colors.white, fontSize: 24)),
+              child: Icon(Icons.home),
             ),
-            const ListTile(
-              title: Text('Profile'),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Container(
+              padding: EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(Icons.school),
             ),
-            const ListTile(
-              title: Text('Settings'),
+            label: 'Courses',
+          ),
+          BottomNavigationBarItem(
+            icon: Container(
+              padding: EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(Icons.notifications),
             ),
-            // Add more options here
-          ],
-        ),
-      ),
-      body: _getPage(_selectedIndex), // Display the selected page
-      bottomNavigationBar: Container(
-        height: 84,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(10),
-            topLeft: Radius.circular(10),
+            label: 'Notifications',
           ),
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(10.0),
-            topRight: Radius.circular(10.0),
+          BottomNavigationBarItem(
+            icon: Container(
+              padding: EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(Icons.store),
+            ),
+            label: 'Store',
           ),
-          child: BottomNavigation(
-            currentIndex: _selectedIndex, // Pass the current index to the BottomNavigation widget
-            onTap: _onItemTapped, // Call the method when an item is tapped
-          ),
-        ),
+        ],
       ),
     );
-  }
-
-  Widget _getPage(int selectedIndex) {
-    // Return the selected index page
-    switch (selectedIndex) {
-      case 0:
-        return const HomePScreen(); // Ensure this screen exists and is imported
-      case 1:
-        return const CoursesScreen(); // Ensure this screen exists and is imported
-      case 2:
-        return const NotificationScreen(); // Ensure this screen exists and is imported
-      default:
-        return const SizedBox(); // Default to an empty box
-    }
   }
 }

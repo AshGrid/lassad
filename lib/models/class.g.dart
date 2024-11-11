@@ -7,11 +7,11 @@ part of 'class.dart';
 // **************************************************************************
 
 Class _$ClassFromJson(Map<String, dynamic> json) => Class(
-      id: json['id'] as String?,
+      id: json['_id'] as String?,
       name: json['name'] as String?,
       students: (json['students'] as List<dynamic>)
           .map((e) =>
-              e == null ? null : User.fromJson(e as Map<String, dynamic>))
+              e == null ? null : UserModel.fromMap(e as Map<String, dynamic>))
           .toList(),
       subjects: (json['subjects'] as List<dynamic>)
           .map((e) =>

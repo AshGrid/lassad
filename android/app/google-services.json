@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "195653984008",
+    "project_id": "moodleapp-921ea",
+    "storage_bucket": "moodleapp-921ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195653984008:android:7e4813c2c43f11886f16bd",
+        "android_client_info": {
+          "package_name": "com.example.moodle_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCeaEX6NadWJFtkdO83ZfgiK-m-6uGibU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

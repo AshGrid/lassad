@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id">1:195653984008:android:7e4813c2c43f11886f16bd</string> <!-- App ID -->
+    <string name="google_api_key">AIzaSyDqtNl4dj-LGd9QGx_-79AYFAKg0CPpv5o</string> <!-- Web API Key -->
+    <string name="firebase_database_url">https://moodleapp-921ea-default-rtdb.firebaseio.com/</string> <!-- Example URL for Realtime Database -->
+    <string name="ga_trackingId"></string> <!-- Leave empty if not using Google Analytics -->
+    <string name="gcm_defaultSenderId">195653984008</string> <!-- Project Number -->
+    <string name="google_storage_bucket">gs://moodleapp-921ea.appspot.com</string> <!-- Storage Bucket -->
+</resources>

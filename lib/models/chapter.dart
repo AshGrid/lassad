@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:moodle_app/classes/subject.dart';
+
 
 part 'chapter.g.dart';
 

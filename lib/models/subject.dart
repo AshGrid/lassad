@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:moodle_app/classes/chapter.dart';
-import 'package:moodle_app/classes/class.dart';
+import 'chapter.dart';
 
 part 'subject.g.dart'; // This is used for JSON serialization support
 

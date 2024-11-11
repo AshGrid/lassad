@@ -4,7 +4,7 @@ class SignUpForm extends StatefulWidget {
   final String role; // Role of the user (student or instructor)
   final Function(String email, String password) onRegister;
 
-  SignUpForm({required this.role, required this.onRegister});
+  const SignUpForm({super.key, required this.role, required this.onRegister});
 
   @override
   _SignUpFormState createState() => _SignUpFormState();

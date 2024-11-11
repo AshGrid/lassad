@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import '../widgets/Bottom_navigation.dart'; // Ensure this path is correct
+// Ensure this path is correct
 import '../widgets/custom_appBar.dart';
 import 'CourseDetailsScreen.dart'; // Ensure this path is correct
 

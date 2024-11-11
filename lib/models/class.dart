@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:moodle_app/classes/subject.dart';
-import 'package:moodle_app/classes/user.dart';
+import 'package:moodle_app/models/subject.dart';
+import 'user_model.dart';
 
 part 'class.g.dart'; // This is used for JSON serialization support
 
@@ -8,7 +8,7 @@ part 'class.g.dart'; // This is used for JSON serialization support
 class Class {
   final String? id; // Unique identifier for the class
   final String? name; // Class name
-  final List<User?> students; // List of student IDs
+  final List<UserModel?> students; // List of student IDs
   final List<Subject?> subjects;
   Class({
     required this.id,

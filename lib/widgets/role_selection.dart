@@ -4,7 +4,7 @@ class RoleSelection extends StatelessWidget {
   final Function onStudentSelected;
   final Function onInstructorSelected;
 
-  RoleSelection({required this.onStudentSelected, required this.onInstructorSelected});
+  const RoleSelection({super.key, required this.onStudentSelected, required this.onInstructorSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class RoleSelection extends StatelessWidget {
               height: 120, // Adjust height as necessary
             ),
           ),
-          Container(
+          SizedBox(
             width: double.infinity, // Full width of the screen
             height: 60,
             child: Row(
