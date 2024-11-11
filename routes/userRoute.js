@@ -6,12 +6,12 @@ import { upload } from '../middlewares/multerStorage.js';
 const router = express.Router();
 
 // Signup route
-router.post('/user/signup', signUp);
+router.post('/signup', signUp);
 
 // Login route
-router.post('/user/login', login);
+router.post('/login', login);
 
 // Modify Account route
-router.put('/user/:userId', verifyToken, upload.single('profilePicture'), modifyAccount);
+router.put('/:userId', verifyToken, upload.single('profilePicture'), modifyAccount);
 
 export default router;

@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
   },
   institution: {
     type: String,
-    required: true,
+    required: false,
   },
   role: {
     type: String,
@@ -32,14 +32,10 @@ const userSchema = new mongoose.Schema({
     required: false,
     default: '', // Can be a URL or file path
   },
-  subjects: {
-    type: [String], // List of subject names or IDs (for students)
-    required: function() { return this.role === 'Student'; },
-  },
-  affiliatedSubject: {
-    type: String, // Name or ID of the affiliated subject (for instructors)
-    required: function() { return this.role === 'Instructor'; },
-  },
+  phone:{
+    type: String,
+    required: false,
+  }
 }, { 
   timestamps: true // Automatically creates createdAt and updatedAt fields
 });

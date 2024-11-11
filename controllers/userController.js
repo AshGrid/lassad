@@ -19,8 +19,13 @@ export const signUp = async (req, res) => {
 
     // Create new user
     const user = await User.create({ email, username, password: hashedPassword, role, institution });
+    const token = jwt.sign(
+        { id: user._id, role: user.role },
+        process.env.JWT_SECRET,  // Access JWT_SECRET through process.env
+        { expiresIn: '1h' }
+    );    
 
-    res.status(201).json({ user});
+    res.status(201).json({ user, token});
   } catch (error) {
     res.status(500).json({ message: 'Error creating user', error });
   }
@@ -51,7 +56,7 @@ export const login = async (req, res) => {
     );    
 
     console.log("profilePicture type after fetch:", typeof user.profilePicture);
-    
+
    // Convert profilePicture Buffer to base64 if it exists and is a Buffer
    const userResponse = user.toObject(); // Convert Mongoose document to plain object
    if (user.profilePicture && Buffer.isBuffer(user.profilePicture)) {

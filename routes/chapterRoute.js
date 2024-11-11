@@ -7,7 +7,7 @@ import {
     deleteChapter, getChaptersBySubjectId
 } from '../controllers/chapterController.js';
 
-import { uploadPdf } from '../middlewares/multerStorage.js';
+import { uploadPdf } from '../middlewares/pdfStorage.js';
 
 const router = express.Router();
 
